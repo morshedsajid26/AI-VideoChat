@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Container from "./Container";
 import { IoIosSearch, IoIosSend } from "react-icons/io";
 import Image from "next/image";
-import union from "../public/Union.png";
+import union from "@/public/Union.png";
 
 const Banner = () => {
   return (
@@ -52,7 +52,7 @@ const Banner = () => {
               Browser Based Chat
             </p>
           </div>
-          <button className="bg-[#0F172B] mt-15 px-10 py-4 rounded text-white hover:bg-[#314D91] transition-all duration-300 cursor-pointer">
+          <button className="bg-[#0F172B] mt-15 px-10 py-4 rounded text-white  hover:bg-[#314D91] transition-all duration-300 cursor-pointer">
            Try for free now
           </button>
         </div>
