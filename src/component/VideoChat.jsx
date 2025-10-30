@@ -48,16 +48,16 @@ const VideoChat = () => {
 
               <p className="text-[#6A7282] fot-inter flex items-center gap-4 px-2.5 py-2 border border-[#00AEEF] w-[60%] rounded-full ">
                 <PiSealCheckFill className="w-5 h-5" />
-                Face to face AI interaction
+                Real-time video responses
               </p>
 
               <p className="text-[#6A7282] fot-inter flex items-center gap-4 px-2.5 py-2 border border-[#00AEEF] w-[60%] rounded-full ">
                 <PiSealCheckFill className="w-5 h-5" />
-                Face to face AI interaction
+                Seamless browser access
               </p>
             </div>
 
-            <button className="bg-[#00AEEF] mt-10 px-15 py-2.5 rounded text-white   cursor-pointer">
+            <button className="bg-[#00AEEF] mt-10 px-15 py-2.5 rounded-[10px] text-white   cursor-pointer">
               Try now
             </button>
           </div>
