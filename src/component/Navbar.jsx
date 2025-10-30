@@ -20,7 +20,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm fixed top-4 left-1/2 -translate-x-1/2 w-[90%] z-50">
+    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm  z-50">
       {/* Desktop Menu */}
       <ul className="hidden md:flex justify-between w-[50%] py-2.5">
         <Li>Home</Li>
@@ -39,12 +39,12 @@ const Navbar = () => {
           </button>
         </div>
         {/* Mobile Menu Toggle Button */}
-        <div className="flex items-center justify-between w-full">
+        <div className="flex  items-center justify-between w-full">
           <button
-          className="md:hidden text-3xl text-white cursor-pointer"
+          className="md:hidden text-3xl text-black cursor-pointer  z-30"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          {menuOpen ? <FiX /> : <FiMenu />}
+          {menuOpen ? <FiX className="w-8 h-8" /> : <FiMenu className="w-8 h-8"/>}
         </button>
 
         <ThemeToggle />
@@ -53,7 +53,7 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="absolute top-[70px] left-0 w-[50%] bg-white/90 darkbg-[#0F172B]/90 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300">
+        <div className="absolute top-[12%] w-[50%] bg-white/90 darkbg-[#0F172B]/90 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300 z-20">
           <ul className="flex flex-col gap-5">
             <Li className="flex flex-col items-center">
               <GoHome className="h-6 w-6" />
