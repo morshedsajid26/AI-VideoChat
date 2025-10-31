@@ -9,7 +9,7 @@ import { PiVideoCamera } from "react-icons/pi";
 const Li = ({ children, className }) => {
   return (
     <li
-      className={`text-black   font-inter cursor-pointer hover:text-[#00AEEF] transition-colors duration-300 ${className}`}
+      className={`text-black  font-inter cursor-pointer hover:text-[#00AEEF] transition-colors duration-300 ${className}`}
     >
       {children}
     </li>
@@ -20,7 +20,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm  z-50">
+    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm dark:bg-white z-50">
       {/* Desktop Menu */}
       <ul className="hidden md:flex justify-between w-[50%] py-2.5">
         <Li>Home</Li>
@@ -53,7 +53,7 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="absolute top-[12%] w-[50%] bg-white/90 darkbg-[#0F172B]/90 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300 z-20">
+        <div className="absolute top-[12%] w-[50%] bg-white/90 dark:bg-[#0F172B]/90 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300 z-20">
           <ul className="flex flex-col gap-5">
             <Li className="flex flex-col items-center">
               <GoHome className="h-6 w-6" />
