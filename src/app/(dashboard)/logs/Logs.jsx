@@ -207,7 +207,7 @@ export default function Logs() {
           placeholder="Data Range"
           options={["1", "2", "3"]}
           onSelect={handleOptionSelect}
-          className={`w-[10%]`}
+          className={`w-[12%]`}
         />
       </div>
 

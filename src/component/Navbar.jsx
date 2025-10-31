@@ -9,7 +9,7 @@ import { PiVideoCamera } from "react-icons/pi";
 const Li = ({ children, className }) => {
   return (
     <li
-      className={`text-black  font-inter cursor-pointer hover:text-[#00AEEF] transition-colors duration-300 ${className}`}
+      className={`text-black   font-inter cursor-pointer hover:text-[#00AEEF] transition-colors duration-300 ${className}`}
     >
       {children}
     </li>

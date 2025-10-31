@@ -211,14 +211,14 @@ export default function ActivityPage() {
           placeholder="Filter by Usage"
           options={["1", "2", "3"]}
           onSelect={handleOptionSelect}
-          className={`w-[12%]`}
+          className={`w-[14%]`}
         />
 
         <Dropdown
           placeholder="Filter by Registration Date"
           options={["1", "2", "3"]}
           onSelect={handleOptionSelect}
-          className={`w-[18%]`}
+          className={`w-[21%]`}
         />
       </div>
 
