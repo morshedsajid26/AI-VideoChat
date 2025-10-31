@@ -28,8 +28,8 @@
   }
 
   .dark {
-
-    --background: #0A0A0F;
+ --bg: #0A0A0F;
+    
     --foreground: #ffffff;
   
 }

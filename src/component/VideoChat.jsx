@@ -21,7 +21,7 @@ const VideoChat = () => {
 
         </div>
         <div className="mt-[30px]">
-          <h3 className="font-inter font-bold text-[36px] text-center text-[#0F172B]">
+          <h3 className="font-inter font-bold text-[36px] text-center text-[#00AEEF]">
             Talk face to face with AI
           </h3>
           <p className="font-onest text-[18px] text-[#45556C] mt-2 text-center ">

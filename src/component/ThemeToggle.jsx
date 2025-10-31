@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export default function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
+  const [mounted, setMounted] = useState(false);
   useEffect(() => {
    
     const saved = localStorage.getItem("theme");
@@ -13,6 +14,11 @@ export default function ThemeToggle() {
       setDark(true);
     }
   }, []);
+ useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   const toggle = () => {
     if (dark) {
