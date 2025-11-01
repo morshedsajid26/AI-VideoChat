@@ -7,7 +7,7 @@ import union from "@/public/Union.png";
 
 const Banner = () => {
   return (
-    <div  className='bg-[url("/bannerLight.png")] dark:bg-[url("/bannerdark.png")] bg-cover bg-no-repeat bg-center pt-[50px] pb-[120px] relative after:absolute after:w-full after:h-full dark:after:bg-black/40 after:bg-transparent  after:top-0 z-30 after:-z-30 '>
+    <div  className='bg-[url("/bannerLight.png")] dark:bg-[url("/bannerdark.png")] bg-cover bg-no-repeat bg-center  pt-5 md:pt-[50px] pb-[120px] relative after:absolute after:w-full after:h-full dark:after:bg-black/40 after:bg-transparent  after:top-0 z-30 after:-z-30 '>
       <Container className="">
         <Navbar />
 
