@@ -1,21 +1,29 @@
+import Image from "next/image";
 import React from "react";
-import { FaCheck } from "react-icons/fa";
+import logo from "@/public/auth_logo.png";
+import InputField from "@/src/component/InputField";
+import Link from "next/link";
 
 const CheckOTP = () => {
   return (
-    <div className="min-h-screen grid place-items-center">
-      <div className="bg-[#E6F7FB] w-[30%] px-30 py-30 text-center gap-5 flex flex-col items-center rounded-2xl">
+    <main className="h-screen grid justify-center items-center py-20 overflow-y-auto hide-scrollbar">
+      <form className=" w-[500px]  text-cente gap-5 flex flex-col items-center rounded-2xl">
+        <Image src={logo} alt="" />
 
-        <div className="w-10 h-10 bg-[#00AF06] flex items-center justify-center rounded-full">
-        <FaCheck className="text-white w-5 h-5" />
+        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-9 mt-15">
+         Enter Verification Code
+        </h3>
 
-        </div>
+        <InputField label="OTP" placeholder="Enter Verification Code" />
 
-        <p className="font-inter text-[24px] text-[#333333]">
-          Password updated Successfully!
-        </p>
-      </div>
-    </div>
+        <Link href="/newpass" className="w-full">
+          <button className="bg-[#010006] text-white w-full font-inter cursor-pointer py-3 rounded-[8px] mt-5 ">
+            Submit
+          </button>
+        </Link>
+
+      </form>
+    </main>
   );
 };
 

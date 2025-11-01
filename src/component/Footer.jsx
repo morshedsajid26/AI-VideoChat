@@ -5,8 +5,8 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="pb-[100px]">
-      <Container className={`py-[30px] border-t border-[#E4E7EC]`}>
+    <div className="md:pb-[100px] pb-10">
+      <Container className={`py-[30px] border-t border-[#E4E7EC] dark:border-[#282726]`}>
         <div className="flex  items-center justify-between">
           <div>
             <p className="font-inter text-[#5C5C5C] font-medium">
