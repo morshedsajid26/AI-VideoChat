@@ -4,7 +4,7 @@ import React from 'react'
 
 const layout = ({children}) => {
   return (
-    <div className=''>
+    <div className='bg-white'>
        <div className="flex h-screen overflow-hidden p-5">
           
         
