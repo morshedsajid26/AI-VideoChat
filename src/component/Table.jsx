@@ -9,7 +9,7 @@ export default function Table({ TableHeads, TableRows }) {
           {TableHeads.map((head, idx) => (
             <th
               key={idx}
-              className={`text-center bg-[#00AEEF]/20  font-medium text-[#000000] py-[22px]  text-[24px]
+              className={`text-center bg-[#00AEEF]/20  font-medium text-[#000000] py-[22px]  text-[24px] font-inter
                 ${idx === 0 ? "rounded-tl-2xl" : ""}
                 ${idx === TableHeads.length - 1 ? "rounded-tr-2xl" : ""}`}
               style={{ width: head.width }}

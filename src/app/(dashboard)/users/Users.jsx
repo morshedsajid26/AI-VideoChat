@@ -10,6 +10,7 @@ import { ImCross } from "react-icons/im";
 import Avatar from "@/public/Avatar.png";
 import Link from "next/link";
 import vector from "@/public/Vector.png"
+import Pagination from "@/src/component/Pagination";
 
 export default function ActivityPage() {
   const [Active, setActive] = useState("All");
@@ -147,15 +148,15 @@ export default function ActivityPage() {
     },
   ];
 
-  const hendleTab = (title) => {
-    setActive(title);
-    if (title === "All") {
-      setBaseOnTitle(TableRows);
-    } else {
-      const checkTilte = TableRows.filter((data) => data.Role === title);
-      setBaseOnTitle(checkTilte);
-    }
-  };
+  // const hendleTab = (title) => {
+  //   setActive(title);
+  //   if (title === "All") {
+  //     setBaseOnTitle(TableRows);
+  //   } else {
+  //     const checkTilte = TableRows.filter((data) => data.Role === title);
+  //     setBaseOnTitle(checkTilte);
+  //   }
+  // };
 
   useEffect(() => {
     setBaseOnTitle(TableRows);
@@ -226,7 +227,7 @@ export default function ActivityPage() {
         <Table TableHeads={TableHeads} TableRows={currentItems} />
       </div>
 
-      <div className="mb-10 py-6">
+      {/* <div className="mb-10 py-6">
         <div className="flex items-center justify-end gap-4">
           <button
             onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
@@ -258,7 +259,13 @@ export default function ActivityPage() {
             Next
           </button>
         </div>
-      </div>
+      </div> */}
+
+      <Pagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
 
       {viewOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 ">

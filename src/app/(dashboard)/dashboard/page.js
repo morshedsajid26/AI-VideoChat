@@ -15,7 +15,7 @@ const page = () => {
     <div>
 
       <div className="grid grid-cols-4 gap-10 mb-15">
-        <div className="bg-[#D4EFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px]">
+        <div className="bg-[#D4EFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
           <FaUsers className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Active Sessions
@@ -25,7 +25,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#F9D4C2] p-[22px] flex flex-col items-center gap-2 rounded-[20px]">
+        <div className="bg-[#F9D4C2] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
           <IoTime className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Minute Used
@@ -35,7 +35,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#D0CFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px] ">
+        <div className="bg-[#D0CFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center ">
           <FaGgCircle  className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
            Total GPT Tokens Consumed
@@ -45,7 +45,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#FBEFD2] p-[22px] flex flex-col items-center gap-2 rounded-[20px]">
+        <div className="bg-[#FBEFD2] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
           <FaDollarSign className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Revenue
@@ -66,12 +66,12 @@ const page = () => {
             className={`w-[10%]`}
           />
 
-          <div className="w-[10%] bg-[#E8E8E8] rounded-[10px] p-2">
+          <div className="w-[10%] bg-[#E8E8E8] rounded-[10px] p-2 text-center">
           <p className="font-inter text-[#000000]">
             System Status
           </p>
 
-          <p className="flex items-center gap-1 font-inter text-[#000000] font-semibold mt-2">
+          <p className="flex items-center gap-1 font-inter text-[#000000] font-semibold mt-2 ">
             <span className="w-3 h-3 bg-[#199C08] rounded-full"></span>
             Healthy
           </p>
