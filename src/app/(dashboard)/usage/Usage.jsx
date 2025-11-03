@@ -1,11 +1,12 @@
 "use client";
 import Dropdown from '@/src/component/Dropdown';
 import { usePathname } from 'next/navigation';
-import React from 'react'
+import React, { useState } from 'react'
 import { BiExport } from "react-icons/bi";
 
 
 const Usage = () => {
+
 
      const TableHeads = [
     { Title: "Service", key: "service", width: "10%" },
@@ -46,6 +47,27 @@ const Usage = () => {
     const pathname = usePathname();
     const pathParts = pathname.split("/").filter(Boolean);
     const headerText = pathParts.join(" ");
+
+
+      const handleExportCSV = () => {
+  const headers = TableHeads.map((h) => h.Title);
+  const rows = TableRows.map((row) =>
+    TableHeads.map((h) => row[h.key]).join(",")
+  );
+
+  const csvContent = [headers.join(","), ...rows].join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "usage-report.csv";
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
+
+
   return (
     <div>
         <h3 className="capitalize font-inter text-[#000000] font-medium text-[24px] mb-8">
@@ -61,7 +83,9 @@ const Usage = () => {
           />
 
           <div className='relative'>
-            <button className='font-inter font-medium text-[#000000] py-2.5 pl-10 pr-2 border-2 border-[#00AEEF] rounded-[8px]'>Export to CSV/XLSX</button>
+            <button 
+            onClick={handleExportCSV}
+            className='font-inter font-medium text-[#000000] py-2.5 pl-10 pr-2 border-2 border-[#00AEEF] rounded-[8px]'>Export to CSV/XLSX</button>
             <BiExport className='w-6 h-6 top-1/2 left-2 -translate-y-1/2 absolute' />
           </div>
 
