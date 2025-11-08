@@ -14,8 +14,8 @@ const page = () => {
   return (
     <div>
 
-      <div className="grid grid-cols-4 gap-10 mb-15">
-        <div className="bg-[#D4EFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
+      <div className="grid grid-cols-12 gap-10 mb-15">
+        <div className="bg-[#D4EFE1] col-span-3 p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
           <FaUsers className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Active Sessions
@@ -25,7 +25,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#F9D4C2] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
+        <div className="bg-[#F9D4C2] col-span-3 p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
           <IoTime className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Minute Used
@@ -35,7 +35,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#D0CFE1] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center ">
+        <div className="bg-[#D0CFE1] p-[22px] col-span-3 flex flex-col items-center gap-2 rounded-[20px] text-center ">
           <FaGgCircle  className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
            Total GPT Tokens Consumed
@@ -45,7 +45,7 @@ const page = () => {
           </p>
         </div>
 
-        <div className="bg-[#FBEFD2] p-[22px] flex flex-col items-center gap-2 rounded-[20px] text-center">
+        <div className="bg-[#FBEFD2] p-[22px] col-span-3 flex flex-col items-center gap-2 rounded-[20px] text-center">
           <FaDollarSign className="w-14 h-14" />
           <p className="font-inter text-[#121212]">
             Total Revenue
