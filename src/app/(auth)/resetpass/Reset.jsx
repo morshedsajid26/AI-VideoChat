@@ -26,7 +26,7 @@ const Reset = () => {
           <p className="text-[#333333] font-inter">
             Back to
             <a
-              href="/resetpass"
+              href="/signin"
               className="text-[#00AEEF]  font-inter underline"
             >
               
