@@ -6,6 +6,7 @@ import cartoon from "@/public/cartoon.png";
 import video from "@/public/video.png";
 import icon from "@/public/icon.png";
 import { PiSealCheckFill } from "react-icons/pi";
+import Link from "next/link";
 
 const VideoChat = () => {
   return (
@@ -75,7 +76,10 @@ const VideoChat = () => {
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[70%] bg-[#B9ECFF] pt-[14px] pb-4 px-7 md:px-25 md:pt-5 md:pb-[45px] text-center flex flex-col items-center gap-2 md:gap-5 rounded-xl">
             <p className="text-[#000000]  font-inter font-medium text-[12px] md:text-[16px]">Kelvin is waiting for you</p>
  
+ <Link href='/chatroom'>
+ 
             <Image src={video} alt="video"/>
+ </Link>
 
             <p className="font-inter  text-[#000000] text-[12px] md:text-[16px]">By joining this meeting you accept our 
 
@@ -85,6 +89,9 @@ const VideoChat = () => {
           </div>
         </div>
       </Container>
+
+
+    
     </div>
   );
 };

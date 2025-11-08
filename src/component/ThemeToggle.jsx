@@ -45,7 +45,7 @@ export default function ThemeToggle() {
 
      <div
                 onClick={toggle}
-                className={`relative flex items-center w-24 h-11 border-[#006489] dark:border-white border bg-white/20 md:backdrop-blur-sm  rounded-full cursor-pointer transition-all duration-300 ${dark ? "md:bg-white/20  md:backdrop-blur-sm " : ""
+                className={`relative flex items-center w-24 h-11 border-[#006489] dark:border-white border bg-white/20 md:backdrop-blur-sm  rounded-full cursor-pointer transition-all duration-300 z-30 ${dark ? "md:bg-white/20  md:backdrop-blur-sm " : ""
                         }`}
             >
                 
@@ -53,7 +53,7 @@ export default function ThemeToggle() {
                     className={`absolute rounded-full  flex items-center justify-center font-bold transition-all duration-300 ${dark ? "translate-x-[52px]" : "translate-x-2"
                         }`}
                 >
-                    {dark ? <Image src={sun} className="w-8 h-8"/> : <Image src={moon} className="w-8 h-8"/>}
+                    {dark ? <Image src={sun} alt="sun" className="w-8 h-8"/> : <Image src={moon} alt="moon" className="w-8 h-8"/>}
                 </div>
 
                 

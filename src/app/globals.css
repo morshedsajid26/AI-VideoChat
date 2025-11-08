@@ -29,8 +29,7 @@
 
   .dark {
  --bg: #0A0A0F;
-    
-    --foreground: #ffffff;
+  --foreground: #ffffff;
   
 }
 
@@ -47,4 +46,9 @@ html, body {
   color: var(--text);
   font-family: Arial, Helvetica, sans-serif;
   transition: background-color 0.3s, color 0.3s;
+}
+
+*{
+  
+  scrollbar-width: none;
 }

@@ -34,7 +34,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="" suppressHydrationWarning >
+    <html lang="en"  suppressHydrationWarning >
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${outfit.variable} ${onest.variable} antialiased`}
       >
@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
+            
         >
 
         {children}

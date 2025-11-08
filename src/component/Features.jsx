@@ -7,7 +7,7 @@ import frame3 from '@/public/Frame3.png'
 
 const Features = () => {
   return (
-    <div className='md:py-[200px] py-30'>
+    <div  className='md:py-[200px] py-30'>
         <Container className={`flex justify-center flex-col items-center`}>
            <div className='md:w-[240px] w-[128px] py-2.5 rounded-full shadow-3xl bg-[#E0E7FF]'>
             <h3 className="font-inter font-bold text-center  text-[#1447E6]  ">

@@ -10,7 +10,7 @@ const page = () => {
   return (
     <div className=''>
       <Banner/>
-      <Features/>
+      <Features />
       <VideoChat/>
       <FAQsection/>
       <Footer/>

@@ -53,9 +53,9 @@ const Navbar = () => {
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
-        <div className="absolute top-[12%] w-[50%] bg-white/90 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300 z-20">
+        <div className="absolute top-[0%] left-0 w-full bg-white/50 backdrop-blur-md py-15 flex flex-col items-center gap-6 shadow-lg md:hidden transition-all duration-300 z-20">
           <ul className="flex flex-col gap-5">
-            <Li className="flex flex-col items-center">
+            <Li  className="flex flex-col items-center">
               <GoHome className="h-6 w-6" />
               Home
             </Li>
