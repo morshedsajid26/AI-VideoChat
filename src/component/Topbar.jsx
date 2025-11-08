@@ -14,10 +14,10 @@ const Topbar = () => {
         <div className="relative ml-[200px]">
           <input
             type="text"
-            className="border outline-none border-[#000000] py-[14px] px-12 w-[462px] rounded-[15px] text-[#000000] placeholder:text-[#000000] font-inter"
+            className="border outline-none border-[#000000] py-[14px] px-12 w-[462px] rounded-[15px] text-[#000000] placeholder:text-[#000000] font-inter md:fixed hidden"
             placeholder="Search"
           />
-          <FaSearch className=" absolute top-1/2 left-6 -translate-y-1/2 text-[#7AA3CC]" />
+          <FaSearch className=" hidden md:absolute top-1/2 left-6 -translate-y-1/2 text-[#7AA3CC]" />
         </div>
       ) : (
         <div className="h-[60px]" />
