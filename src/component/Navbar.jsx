@@ -5,6 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 import { GoHome } from "react-icons/go";
 import { BsStars } from "react-icons/bs";
 import { PiVideoCamera } from "react-icons/pi";
+import Link from "next/link";
 
 const Li = ({ children, className }) => {
   return (
@@ -34,9 +35,11 @@ const Navbar = () => {
       {/* Right Side (Join + Theme Toggle) */}
       <div className="flex  items-center gap-3 w-full md:w-auto">
         <div className="bg-white p-[1px] rounded-full hidden md:block">
+          <Link href='/signin'>
           <button className="bg-[#0F172B] px-6 py-2.5 rounded-full hover:bg-[#314D91] transition-all duration-300 cursor-pointer text-white dar:text-black">
             JOIN
           </button>
+          </Link>
         </div>
         {/* Mobile Menu Toggle Button */}
         <div className="flex  items-center justify-between w-full">
@@ -68,9 +71,11 @@ const Navbar = () => {
               <PiVideoCamera className="h-6 w-6" />
               Video Chat</Li>
           </ul>
+          <Link href='/signin'>
           <button className="bg-[#0F172B] px-6 py-2.5 rounded-full hover:bg-[#314D91] transition-all duration-300 cursor-pointer text-white drk:text-black">
             JOIN
           </button>
+          </Link>
         </div>
       )}
     </nav>

@@ -65,10 +65,12 @@ const Sidebar = () => {
         </ul>
 
         <div className="mt-60">
+          <Link href='/signin'>
           <button className="flex items-center gap-4 py-2 px-2 w-full text-[#FF1100] hover:bg-[#00AEEF]  font-inter font-medium cursor-pointer rounded-[8px] transition-all duration-200">
             <Image src={logout} alt="log out" className="w-6 h-6" />
             Log Out
           </button>
+          </Link>
         </div>
         
       </div>

@@ -1,8 +1,20 @@
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect } from 'react'
 import { FaCheck } from 'react-icons/fa'
 
 const Success = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    
+    const timer = setTimeout(() => {
+      router.push("/signin");
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
   return (
     <div className="min-h-screen grid place-items-center">
       <div className="bg-[#E6F7FB] w-[30%] px-30 py-30 text-center gap-5 flex flex-col items-center rounded-2xl">
