@@ -2,7 +2,9 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter, usePathname } from "next/navigation";
 import { FiMenu, FiX } from "react-icons/fi";
 
 import sideicon1 from "@/public/sideicon1.png";
@@ -23,11 +25,32 @@ const navitems = [
 ];
 
 const Sidebar = () => {
+  const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
+  // 🔥 LOGOUT HANDLER
+const handleLogout = async () => {
+  try {
+    await axios.post("http://127.0.0.1:8000/api/admin-logout");
+
+    Cookies.remove("token");
+    localStorage.removeItem("token");
+
+    router.push("/signin");
+  } catch (error) {
+    console.error("Logout failed:", error);
+
+    Cookies.remove("token");
+    localStorage.removeItem("token");
+
+    router.push("/signin");
+  }
+};
+
   return (
     <>
+      {/* Mobile Toggle Button */}
       <button
         className="2xl:hidden fixed top-5 left-5 z-50 p-2 bg-[#00AEEF] text-[#F1F1F1] rounded-lg cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
@@ -35,14 +58,17 @@ const Sidebar = () => {
         {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </button>
 
+      {/* Sidebar */}
       <div
         className={`fixed 2xl:static top-0 left-0 z-40 max-h-screen w-[241px] shrink-0 flex flex-col pl-2.5 pr-5 py-7 bg-[#F1F1F1] rounded-r-3xl 2xl:rounded-3xl shadow-lg transition-transform duration-300 ease-in-out overflow-scroll hide-scrollbar
-        ${isOpen ? "translate-x-0 " : "-translate-x-full 2xl:translate-x-0"}`}
+        ${isOpen ? "translate-x-0" : "-translate-x-full 2xl:translate-x-0"}`}
       >
+        {/* LOGO */}
         <div className="text-center">
-          <p className="text-4xl font-bold   py-3">Logo</p>
+          <p className="text-4xl font-bold py-3">Logo</p>
         </div>
 
+        {/* NAV ITEMS */}
         <ul className="flex flex-col gap-6 mt-[90px]">
           {navitems.map((item, index) => {
             const isActive = pathname === item.link;
@@ -54,32 +80,35 @@ const Sidebar = () => {
                 className={`py-2 px-2 font-inter font-medium flex items-center gap-4 cursor-pointer rounded-[8px] transition-all duration-200 ${
                   isActive
                     ? "bg-[#00AEEF] "
-                    : "text-[#000000] hover:bg-[#00AEEF] "
+                    : "text-[#000000] hover:bg-[#00AEEF]"
                 }`}
               >
-                <Image src={item.icon} alt={item.name} className={`w-6 h-6`} />
+                <Image src={item.icon} alt={item.name} className="w-6 h-6" />
                 {item.name}
               </Link>
             );
           })}
         </ul>
 
+        {/* LOGOUT BUTTON */}
         <div className="mt-60">
-          <Link href='/signin'>
-          <button className="flex items-center gap-4 py-2 px-2 w-full text-[#FF1100] hover:bg-[#00AEEF]  font-inter font-medium cursor-pointer rounded-[8px] transition-all duration-200">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-4 py-2 px-2 w-full text-[#FF1100] hover:bg-[#00AEEF] font-inter font-medium cursor-pointer rounded-[8px] transition-all duration-200"
+          >
             <Image src={logout} alt="log out" className="w-6 h-6" />
             Log Out
           </button>
-          </Link>
         </div>
-        
       </div>
-      {/* 🔹 Overlay for mobile (click to close) */}
+
+      {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/40  z-30 2xl:hidden"
+          className="fixed inset-0 bg-black/40 z-30 2xl:hidden"
           onClick={() => setIsOpen(false)}
-        ></div>
+        >
+        </div>
       )}
     </>
   );

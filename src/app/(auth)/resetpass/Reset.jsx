@@ -28,21 +28,18 @@ const Reset = () => {
       setLoading(true);
 
       // ✅ OTP send request to backend
-      const res = await axios.post("http://127.0.0.1:8000/api/user-send-otp", {
+      const res = await axios.post("http://127.0.0.1:8000/api/admin-send-otp", {
         email: email,
       });
+      console.log("OTP API RESPONSE:", res.data);
 
-      if (res.status === 200) {
-        setSuccess("OTP sent successfully!");
-
-        // ✅ Save email in sessionStorage for next steps (CheckOTP & NewPass)
-        sessionStorage.setItem("resetEmail", email);
-
-        // ✅ Redirect to OTP verification page
-        setTimeout(() => {
-          router.push("/checkotp");
-        }, 700);
-      }
+      if (res.status === 200 && res.data.status === "success") {
+  setSuccess("OTP sent successfully!");
+  sessionStorage.setItem("resetEmail", email);
+  router.push("/checkotp");
+} else {
+  setError(res.data.message || "Failed to send OTP");
+}
     } catch (err) {
       console.error("OTP Send Error:", err);
       setError(err.response?.data?.message || "Failed to send OTP");

@@ -20,11 +20,9 @@ const NewPass = () => {
 
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("resetEmail");
-    if (storedEmail) {
-      setEmail(storedEmail);
-    } else {
-      router.push("/reset");
-    }
+    if (!storedEmail) return router.push("/reset");
+
+    setEmail(storedEmail);
   }, [router]);
 
   const handleChange = (e) => {
@@ -37,40 +35,45 @@ const NewPass = () => {
     setSuccess("");
 
     if (!formData.password || !formData.confirmPassword) {
-      setError("Please fill out both password fields");
-      return;
+      return setError("Please fill out both password fields");
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
+      return setError("Passwords do not match");
     }
 
     try {
       setLoading(true);
 
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/user-reset-password",
+        "http://127.0.0.1:8000/api/admin-reset-password",
         {
+          email: email,
           password: formData.password,
           password_confirmation: formData.confirmPassword,
         },
         {
           headers: {
-            email: email,
             Accept: "application/json",
+            "Content-Type": "application/json",
           },
-          withCredentials: true, // ✅ added for cross-origin + custom header
         }
       );
 
       if (res.status === 200) {
-        sessionStorage.removeItem("resetEmail");
-        router.push("/success");
+        setSuccess("Password updated successfully!");
+
+        
+
+        setTimeout(() => router.push("/success"), 800);
       }
     } catch (err) {
       console.error("Password Reset Error:", err);
-      setError(err.response?.data?.message || "Failed to reset password");
+      setError(
+        err.response?.data?.message ||
+          err.response?.data?.error ||
+          "Failed to reset password"
+      );
     } finally {
       setLoading(false);
     }
@@ -80,20 +83,17 @@ const NewPass = () => {
     <main className="h-screen grid justify-center items-center py-20 overflow-y-auto hide-scrollbar">
       <form
         onSubmit={handleSubmit}
-        className="w-[500px] text-cente gap-5 flex flex-col items-center rounded-2xl"
+        className="w-[500px] flex flex-col gap-5 items-center"
       >
         <Image src={logo} alt="logo" />
 
-        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-9 mt-15">
+        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-9">
           Enter new password
         </h3>
 
-        {email && (
-          <p className="text-sm text-[#6A7282] -mt-2 mb-2">
-            Changing password for:{" "}
-            <span className="font-semibold text-[#333333]">{email}</span>
-          </p>
-        )}
+        <p className="text-sm text-[#6A7282] -mt-2 mb-2">
+          Changing password for: <span className="font-semibold">{email}</span>
+        </p>
 
         <Password
           label="Password"
@@ -105,19 +105,19 @@ const NewPass = () => {
 
         <Password
           label="Confirm Password"
-          placeholder="Enter your password again"
+          placeholder="Re-enter password"
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
         />
 
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        {success && <p className="text-green-600 text-sm mt-2">{success}</p>}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {success && <p className="text-green-600 text-sm">{success}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#010006] text-white w-full font-inter py-3 rounded-[8px] mt-5 cursor-pointer"
+          className="bg-[#010006] text-white w-full py-3 rounded-[8px]"
         >
           {loading ? "Updating..." : "Update Password"}
         </button>

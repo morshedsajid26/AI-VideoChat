@@ -1,13 +1,15 @@
 import Sidebar from '@/src/component/Sidebar'
 import Topbar from '@/src/component/Topbar'
 import React from 'react'
-import Providers from '../../providers'
-import { SimpleProvider } from '../../SimpleProvider'
+import Providers from '../providers'
+
+
+
 
 const layout = ({children}) => {
   return (
 
-    <SimpleProvider>
+ 
 
 <Providers>
 
@@ -37,8 +39,7 @@ const layout = ({children}) => {
           </div>
       </div>
 </Providers>
-    
-    </SimpleProvider>
+
     )
 }
 

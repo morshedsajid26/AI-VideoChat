@@ -1,92 +1,113 @@
 "use client";
-import Image from 'next/image';
-import React, { useState } from 'react';
+
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import logo from "@/public/auth_logo.png";
-import InputField from '@/src/component/InputField';
-import Password from '@/src/component/Password';
-import { FcGoogle } from "react-icons/fc";
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import InputField from "@/src/component/InputField";
+import Password from "@/src/component/Password";
+import axios from "axios";
+import { useRouter, useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
+
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000";
+const LOGIN_URL = `${API_BASE}/api/admin-login`;
+
+// Attach token as default axios header
+const setAxiosAuthHeader = (token) => {
+  if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  else delete axios.defaults.headers.common["Authorization"];
+};
 
 const SignIn = () => {
   const router = useRouter();
+  const sp = useSearchParams();
 
-  // form state
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
 
-  // ui states
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
 
-  // handle change
+  // redirect from ?redirect=/dashboard
+  const callbackUrl = sp.get("redirect") || "/dashboard";
+
+  // If already logged in → redirect
+  useEffect(() => {
+    const existingToken = Cookies.get("token");
+    if (existingToken) {
+      setAxiosAuthHeader(existingToken);
+      router.replace(callbackUrl);
+    }
+  }, [callbackUrl, router]);
+
+  const handleSubmit = async () => {
+  setError("");
+  setLoading(true);
+
+  try {
+    const res = await axios.post(
+      LOGIN_URL,
+      formData,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    console.log("LOGIN RESPONSE:", res.data);
+
+    const token = res?.data?.token; 
+
+    if (!token) throw new Error("Token not found in response");
+
+    Cookies.set("token", token, {
+      expires: 7,
+      path: "/",
+      sameSite: "lax",
+    });
+
+    setAxiosAuthHeader(token);
+
+    localStorage.setItem("token", token);
+
+    router.replace(callbackUrl);
+  } catch (err) {
+    const msg =
+      err?.response?.data?.message ||
+      err?.message ||
+      "Login failed";
+    setError(msg);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // handle submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const res = await axios.post("http://127.0.0.1:8000/api/user-login", {
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (res.status === 200) {
-        setSuccess("Login successful!");
-        // Optionally save token if returned
-        if (res.data.token) {
-          localStorage.setItem("authToken", res.data.token);
-        }
-        setTimeout(() => {
-          router.push("/"); // redirect after login
-        }, 400);
-      }
-    } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Invalid credentials");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <main className="h-screen grid justify-center items-center py-20 overflow-y-auto hide-scrollbar">
-      <form
-        onSubmit={handleSubmit}
-        className="w-[500px] text-cente gap-5 flex flex-col items-center rounded-2xl"
-      >
+    <main className="h-screen grid justify-center items-center py-20">
+      <div className="w-[500px] gap-5 flex flex-col items-center rounded-2xl">
         <Image src={logo} alt="" />
 
-        <h3 className='font-inter font-bold text-[30px] text-[#333333] mb-9 mt-15'>
+        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-9">
           Sign in to your account
         </h3>
 
         <InputField
-          label='Email Address'
-          placeholder='Enter your email here'
-          name='email'
+          label="Email Address"
+          placeholder="Enter your email"
+          name="email"
           value={formData.email}
           onChange={handleChange}
         />
 
         <Password
-          label='Password'
+          label="Password"
           placeholder="Enter your password"
-          name='password'
+          name="password"
           value={formData.password}
           onChange={handleChange}
         />
@@ -104,35 +125,17 @@ const SignIn = () => {
           </a>
         </div>
 
-        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
-        {success && <p className="text-green-600 text-sm mt-3">{success}</p>}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
-          type='submit'
+          type="button"
+          onClick={handleSubmit}
           disabled={loading}
-          className='bg-[#010006] text-white w-full font-inter py-3 rounded-[8px] cursor-pointer mt-4'
+          className="bg-[#010006] text-white w-full font-inter py-3 rounded-[8px] cursor-pointer mt-4"
         >
           {loading ? "Logging in..." : "Log In"}
         </button>
-
-        <div className='w-full flex items-center justify-between mt-6'>
-          <span className='w-[45%] bg-[#989898] h-[1px]'></span>
-          <p className='font-inter text-[#6A7282]'>or</p>
-          <span className='w-[45%] bg-[#989898] h-[1px]'></span>
-        </div>
-
-        <p className='font-inter text-[#6A7282] mt-9'>
-          Don't have an account? 
-          <a href="/signup" className='text-[#333333] underline'>
-            Sign up
-          </a>
-        </p>
-
-        <button className='border-[#010006] border cursor-pointer relative w-full font-inter py-3 rounded-full mt-9'>
-          Continue with Google
-          <FcGoogle className='w-6 h-6 absolute top-1/2 left-32 -translate-y-1/2' />
-        </button>
-      </form>
+      </div>
     </main>
   );
 };
