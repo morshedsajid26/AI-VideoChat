@@ -36,7 +36,7 @@ const Reset = () => {
       if (res.status === 200 && res.data.status === "success") {
   setSuccess("OTP sent successfully!");
   sessionStorage.setItem("resetEmail", email);
-  router.push("/checkotp");
+  router.push("/admin/checkotp");
 } else {
   setError(res.data.message || "Failed to send OTP");
 }
@@ -82,7 +82,7 @@ const Reset = () => {
         <div className="flex justify-end w-full">
           <p className="text-[#333333] font-inter">
             Back to{" "}
-            <a href="/signin" className="text-[#00AEEF] font-inter underline">
+            <a href="/admin/signin" className="text-[#00AEEF] font-inter underline">
               sign in
             </a>
           </p>

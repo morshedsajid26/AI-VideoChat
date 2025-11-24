@@ -33,12 +33,7 @@ export default function ActivityPage() {
     );
   };
 
-  //   const FilterTab = [
-  //     { title: "All" },
-  //     { title: "Admin" },
-  //     { title: "User" },
-  //     { title: "Supervisor" },
-  //   ];
+
 
   const TableHeads = [
     { Title: "Name", key: "name", width: "10%" },
@@ -148,15 +143,7 @@ export default function ActivityPage() {
     },
   ];
 
-  // const hendleTab = (title) => {
-  //   setActive(title);
-  //   if (title === "All") {
-  //     setBaseOnTitle(TableRows);
-  //   } else {
-  //     const checkTilte = TableRows.filter((data) => data.Role === title);
-  //     setBaseOnTitle(checkTilte);
-  //   }
-  // };
+ 
 
   useEffect(() => {
     setBaseOnTitle(TableRows);
@@ -178,21 +165,7 @@ export default function ActivityPage() {
 
   return (
     <div className="">
-      {/* <div className="flex items-center gap-2">
-        {FilterTab.map((tab, idx) => (
-          <button
-            key={idx}
-            onClick={() => hendleTab(tab.title)}
-            className={`rounded-lg ${
-              Active === tab.title
-                ? "bg-[#D9DFFF] text-[#0C0C0D] font-medium py-4 px-22"
-                : "text-[#555659] bg-white font-normal py-4 px-16"
-            }`}
-          >
-            {tab.title}
-          </button>
-        ))}
-      </div> */}
+      
 
       <h3 className="capitalize font-inter text-[#000000] font-medium text-[24px] mb-8">
         {headerText}
@@ -227,39 +200,7 @@ export default function ActivityPage() {
         <Table TableHeads={TableHeads} TableRows={currentItems} />
       </div>
 
-      {/* <div className="mb-10 py-6">
-        <div className="flex items-center justify-end gap-4">
-          <button
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
-            className="px-6 py-3 rounded-md bg-[#00AEEF] disabled:bg-[#DFE0E5] font-inter"
-          >
-            Previous
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-3 py-1 transition ${
-                currentPage === i + 1
-                  ? "bg-[#00AEEF] text-black rounded-full"
-                  : "hover:bg-white border border-[#00AEEF] hover:rounded-ful rounded-sm  duration-300 font-inter"
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            className="px-6 py-3 rounded-md bg-[#00AEEF] disabled:bg-[#DFE0E5] font-inter"
-          >
-            Next
-          </button>
-        </div>
-      </div> */}
+      
 
       <Pagination
         totalPages={totalPages}

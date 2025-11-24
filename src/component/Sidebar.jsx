@@ -24,6 +24,7 @@ const navitems = [
   { name: "Settings", link: "/", icon: sideicon6 },
 ];
 
+
 const Sidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -32,21 +33,56 @@ const Sidebar = () => {
   // 🔥 LOGOUT HANDLER
 const handleLogout = async () => {
   try {
-    await axios.post("http://127.0.0.1:8000/api/admin-logout");
+    const email = localStorage.getItem("userEmail");
+    const token = Cookies.get("token");
+
+    await axios.get("http://127.0.0.1:8000/api/admin-logout", {
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        Authorization: `Bearer ${token}`,
+        email: email
+      },
+      withCredentials: true
+    });
 
     Cookies.remove("token");
     localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
 
-    router.push("/signin");
+    window.location.href = "/signin";
+
   } catch (error) {
     console.error("Logout failed:", error);
 
     Cookies.remove("token");
     localStorage.removeItem("token");
+    localStorage.removeItem("userEmail");
 
-    router.push("/signin");
+    window.location.href = "/admin/signin";
   }
 };
+
+// const handleLogout = async () => {
+//   try {
+//     await axios.get("http://127.0.0.1:8000/api/admin-logout", {
+//       withCredentials: true, 
+//     });
+
+   
+//     Cookies.remove("admin_token");
+//     localStorage.removeItem("token");
+
+//     router.push("/signin");
+//   } catch (error) {
+//     console.error("Logout failed:", error);
+
+//     Cookies.remove("admin_token");
+//     localStorage.removeItem("token");
+
+//     router.push("/signin");
+//   }
+// };
 
   return (
     <>

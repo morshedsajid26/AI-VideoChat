@@ -6,6 +6,9 @@ import Password from "@/src/component/Password";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+// ✔ Always allow sending cookies
+axios.defaults.withCredentials = true;
+
 const NewPass = () => {
   const router = useRouter();
 
@@ -18,15 +21,21 @@ const NewPass = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Get email from sessionStorage
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("resetEmail");
-    if (!storedEmail) return router.push("/reset");
-
+    if (!storedEmail) {
+      router.push("/user/resetpass");
+      return;
+    }
     setEmail(storedEmail);
   }, [router]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -35,44 +44,45 @@ const NewPass = () => {
     setSuccess("");
 
     if (!formData.password || !formData.confirmPassword) {
-      return setError("Please fill out both password fields");
+      setError("Please fill all fields");
+      return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      return setError("Passwords do not match");
+      setError("Passwords do not match");
+      return;
     }
 
     try {
       setLoading(true);
 
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/admin-reset-password",
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/user-reset-password",
         {
-          email: email,
           password: formData.password,
           password_confirmation: formData.confirmPassword,
         },
         {
+          withCredentials: true,
           headers: {
-            Accept: "application/json",
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
         }
       );
 
-      if (res.status === 200) {
-        setSuccess("Password updated successfully!");
+      if (response.status === 200) {
+        // setSuccess("Password updated successfully!");
 
-        
-
-        setTimeout(() => router.push("/success"), 800);
+        setTimeout(() => {
+          router.push("/user/success");
+        });
       }
     } catch (err) {
-      console.error("Password Reset Error:", err);
+      console.error("Reset Error:", err);
       setError(
         err.response?.data?.message ||
-          err.response?.data?.error ||
-          "Failed to reset password"
+          "Failed to reset password. Try again."
       );
     } finally {
       setLoading(false);
@@ -80,33 +90,34 @@ const NewPass = () => {
   };
 
   return (
-    <main className="h-screen grid justify-center items-center py-20 overflow-y-auto hide-scrollbar">
+    <main className="h-screen grid justify-center items-center py-20">
       <form
         onSubmit={handleSubmit}
         className="w-[500px] flex flex-col gap-5 items-center"
       >
         <Image src={logo} alt="logo" />
 
-        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-9">
-          Enter new password
+        <h3 className="font-inter font-bold text-[30px] text-[#333333] mb-4">
+          Set New Password
         </h3>
 
-        <p className="text-sm text-[#6A7282] -mt-2 mb-2">
-          Changing password for: <span className="font-semibold">{email}</span>
+        <p className="text-sm text-[#6A7282]">
+          Changing password for:{" "}
+          <span className="font-bold">{email}</span>
         </p>
 
         <Password
-          label="Password"
-          placeholder="Enter your password"
+          label="New Password"
           name="password"
+          placeholder="Enter new password"
           value={formData.password}
           onChange={handleChange}
         />
 
         <Password
           label="Confirm Password"
-          placeholder="Re-enter password"
           name="confirmPassword"
+          placeholder="Re-enter password"
           value={formData.confirmPassword}
           onChange={handleChange}
         />
@@ -117,7 +128,7 @@ const NewPass = () => {
         <button
           type="submit"
           disabled={loading}
-          className="bg-[#010006] text-white w-full py-3 rounded-[8px]"
+          className="bg-[#010006] text-white w-full py-3 rounded-[8px] mt-4"
         >
           {loading ? "Updating..." : "Update Password"}
         </button>
@@ -126,4 +137,4 @@ const NewPass = () => {
   );
 };
 
-export default NewPass;
+export default NewPass;

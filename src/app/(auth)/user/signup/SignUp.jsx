@@ -69,7 +69,7 @@ const SignUp = () => {
       if (res.status === 200 || res.status === 201) {
         setSuccess("Account created successfully!");
         setTimeout(() => {
-          router.push("/signin");
+          router.push("/user/signin");
         }, 1500);
       }
     } catch (err) {
@@ -155,23 +155,23 @@ const SignUp = () => {
           {loading ? "Creating..." : "Sign Up"}
         </button>
 
-        <div className='w-full flex items-center justify-between '>
+        {/* <div className='w-full flex items-center justify-between '>
           <span className='w-[45%] bg-[#989898] h-[1px]'></span>
           <p className='font-inter text-[#6A7282]'>or</p>
           <span className='w-[45%] bg-[#989898] h-[1px]'></span>
-        </div>
+        </div> */}
 
         <p className='font-inter text-[#6A7282] mt-9'>
           Already have an account? 
-          <a href="/signin" className='text-[#333333] underline'>
+          <a href="/user/signin" className='text-[#333333] underline'>
             Sign in
           </a>
         </p>
 
-        <button className='border-[#010006] border cursor-pointer relative w-full font-inter py-3 rounded-full mt-9'>
+        {/* <button className='border-[#010006] border cursor-pointer relative w-full font-inter py-3 rounded-full mt-9'>
           Continue with Google
           <FcGoogle className='w-6 h-6 absolute top-1/2 left-32 -translate-y-1/2' />
-        </button>
+        </button> */}
       </form>
     </main>
   )

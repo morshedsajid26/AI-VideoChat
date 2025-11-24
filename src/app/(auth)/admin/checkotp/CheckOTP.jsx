@@ -16,11 +16,16 @@ const CheckOTP = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Enable credential cookies globally
+  useEffect(() => {
+    axios.defaults.withCredentials = true;
+  }, []);
+
   // Get email from sessionStorage
   useEffect(() => {
     const storedEmail = sessionStorage.getItem("resetEmail");
     if (!storedEmail) {
-      router.push("/reset");
+      router.push("/admin/resetpass");
     } else {
       setEmail(storedEmail);
     }
@@ -46,6 +51,7 @@ const CheckOTP = () => {
           otp: otp,
         },
         {
+          withCredentials: true, // IMPORTANT
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -56,9 +62,11 @@ const CheckOTP = () => {
       if (res.status === 200 && res.data.status === "success") {
         setSuccess("OTP Verified Successfully!");
 
-        // 🚀 If OTP is correct → go to new password page
+        // 🚀 Cookie is already stored automatically.
+
+        // Redirect to new password page
         setTimeout(() => {
-          router.push("/newpass");
+          router.push("/admin/newpass");
         }, 800);
       } else {
         setError(res.data.message || "Invalid OTP");
@@ -113,4 +121,4 @@ const CheckOTP = () => {
   );
 };
 
-export default CheckOTP;
+export default CheckOTP;
