@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import Cookies from "js-cookie";
 
 export function middleware(req) {
-  const token = req.cookies.get("token")?.value;
+  const token = req.cookies.get("admin_token")?.value;
 
   // PROTECTED ROUTES
   const protectedRoutes = [

@@ -13,14 +13,12 @@ const API_BASE =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000";
 const LOGIN_URL = `${API_BASE}/api/admin-login`;
 
-// Attach token as default axios header
 const setAxiosAuthHeader = (token) => {
   if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   else delete axios.defaults.headers.common["Authorization"];
 };
 
 const SignIn = () => {
-
   const router = useRouter();
   const sp = useSearchParams();
 
@@ -32,12 +30,11 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // redirect from ?redirect=/dashboard
   const callbackUrl = sp.get("redirect") || "/dashboard";
 
   // If already logged in → redirect
   useEffect(() => {
-    const existingToken = Cookies.get("token");
+    const existingToken = Cookies.get("admin_token");
     if (existingToken) {
       setAxiosAuthHeader(existingToken);
       router.replace(callbackUrl);
@@ -45,44 +42,51 @@ const SignIn = () => {
   }, [callbackUrl, router]);
 
   const handleSubmit = async () => {
-  setError("");
-  setLoading(true);
+    setError("");
+    setLoading(true);
 
-  try {
-    const res = await axios.post(
-      LOGIN_URL,
-      formData,
-      { headers: { "Content-Type": "application/json" } }
-    );
+    try {
+      const res = await axios.post(
+        LOGIN_URL,
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    console.log("LOGIN RESPONSE:", res.data);
+      console.log("LOGIN RESPONSE:", res.data);
 
-    const token = res?.data?.token; 
+      const token = res?.data?.token;
+      if (!token) throw new Error("Token not found");
 
-    if (!token) throw new Error("Token not found in response");
+      // --------------------------------------------
+      // SAVE LOGIN EMAIL DIRECTLY (NO TOKEN DECODE)
+      // --------------------------------------------
+      Cookies.set("email", formData.email, {
+        expires: 7,
+        path: "/",
+      });
 
-    Cookies.set("token", token, {
-      expires: 7,
-      path: "/",
-      sameSite: "lax",
-    });
+      Cookies.set("admin_token", token, {
+        expires: 7,
+        path: "/",
+      });
 
-    setAxiosAuthHeader(token);
+      // axios header attach
+      setAxiosAuthHeader(token);
 
-    localStorage.setItem("token", token);
+      // Redirect to dashboard
+      router.replace(callbackUrl);
 
-    router.replace(callbackUrl);
-  } catch (err) {
-    const msg =
-      err?.response?.data?.message ||
-      err?.message ||
-      "Login failed";
-    setError(msg);
-  } finally {
-    setLoading(false);
-  }
-};
-
+    } catch (err) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "Login failed";
+      setError(msg);
+      console.log("ERROR:", msg);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

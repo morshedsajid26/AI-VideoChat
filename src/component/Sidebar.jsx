@@ -33,8 +33,8 @@ const Sidebar = () => {
   // 🔥 LOGOUT HANDLER
 const handleLogout = async () => {
   try {
-    const email = localStorage.getItem("userEmail");
-    const token = Cookies.get("token");
+    const email = localStorage.getItem("admin_email");
+    const token = Cookies.get("admin_token");
 
     await axios.get("http://127.0.0.1:8000/api/admin-logout", {
       headers: {
@@ -46,18 +46,20 @@ const handleLogout = async () => {
       withCredentials: true
     });
 
-    Cookies.remove("token");
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
+    Cookies.remove("admin_token");
+    Cookies.remove("email");
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("email");
 
     window.location.href = "/signin";
 
   } catch (error) {
     console.error("Logout failed:", error);
 
-    Cookies.remove("token");
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
+    Cookies.remove("admin_token");
+    Cookies.remove("email");
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("email");
 
     window.location.href = "/admin/signin";
   }
