@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 import { GoHome } from "react-icons/go";
@@ -22,15 +22,52 @@ const Li = ({ children, className }) => {
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    email: "",
+  });
+
+  const profileRef = useRef(null);
 
   // Check login status from cookie
   useEffect(() => {
     const token = Cookies.get("token");
-    setIsLoggedIn(!!token);
+    const name = Cookies.get("name");
+    const email = Cookies.get("email");
+
+    if (token) {
+      setIsLoggedIn(true);
+      setUserInfo({
+        name: name || "User",
+        email: email || "example@gmail.com",
+      });
+    }
   }, []);
 
+  // Close profile dropdown on outside click
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Logout
+  const handleLogout = () => {
+    Cookies.remove("token");
+    Cookies.remove("name");
+    Cookies.remove("email");
+    setIsLoggedIn(false);
+    setProfileOpen(false);
+  };
+
   return (
-    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm md:dark:bg-white/20 md:dark:backdrop-blur-sm z-50">
+    <nav className="flex justify-between items-center py-4 px-[5%] rounded-full md:border md:border-[#006489]/40 md:bg-white/20 md:backdrop-blur-sm md:dark:bg-white/20 md:dark:backdrop-blur-sm z-30">
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex justify-between w-[50%] py-2.5">
@@ -42,17 +79,39 @@ const Navbar = () => {
         <Li>Blog</Li>
       </ul>
 
-      {/* Right Side (Join or Avatar + Theme Toggle) */}
+      {/* Right Side */}
       <div className="flex items-center gap-3 w-full md:w-auto">
 
-        {/* Desktop Button */}
-        <div className="bg-white p-[1px] rounded-full hidden md:block">
+        {/* Desktop Button / Avatar */}
+        <div className="bg-white p-[1px] rounded-full hidden md:block relative" ref={profileRef}>
           {isLoggedIn ? (
-            <Link href="/dashboard">
-              <div className="flex items-center gap-2 cursor-pointer">
+            <>
+              <div
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => setProfileOpen(!profileOpen)}
+              >
                 <FaUserCircle className="text-4xl text-[#0F172B] dark:text-white" />
               </div>
-            </Link>
+
+              {/* Profile Dropdown */}
+              {profileOpen && (
+                <div className="absolute right-0 mt-3 w-60 bg-white dark:bg-[#0F172B] shadow-lg rounded-xl p-4 z-60">
+                  <p className="font-semibold font-inter text-[#0F172B] dark:text-white">
+                    {userInfo.name}
+                  </p>
+                  <p className="text-sm font-inter text-gray-600 dark:text-gray-300">
+                    {userInfo.email}
+                  </p>
+
+                  <button
+                    onClick={handleLogout}
+                    className="mt-4 cursor-pointer bg-red-500 w-full py-2 rounded-lg text-white hover:bg-red-600 transition-all"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <Link href="/user/signin">
               <button className="bg-[#0F172B] px-6 py-2.5 rounded-full hover:bg-[#314D91] transition-all duration-300 cursor-pointer text-white dark:text-black">
@@ -87,7 +146,6 @@ const Navbar = () => {
               <BsStars className="h-6 w-6" />
               Features
             </Li>
-
             <Li className="flex flex-col items-center">
               <PiVideoCamera className="h-6 w-6" />
               Video Chat
@@ -96,9 +154,19 @@ const Navbar = () => {
 
           {/* Mobile JOIN or Avatar */}
           {isLoggedIn ? (
-            <Link href="/dashboard">
+            <div className="flex flex-col items-center">
               <FaUserCircle className="text-5xl text-[#0F172B] dark:text-white mt-3" />
-            </Link>
+
+              <p className="mt-2 font-semibold">{userInfo.name}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">{userInfo.email}</p>
+
+              <button
+                onClick={handleLogout}
+                className="mt-4 bg-red-500 px-6 py-2 rounded-full text-white hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </div>
           ) : (
             <Link href="/signin">
               <button className="bg-[#0F172B] px-6 py-2.5 rounded-full hover:bg-[#314D91] transition-all duration-300 cursor-pointer text-white dark:text-black">

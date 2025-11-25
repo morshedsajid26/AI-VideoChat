@@ -11,9 +11,9 @@ const Banner = () => {
       <Container className="">
         <Navbar />
 
-        <div className="text-center ">
+        <div className="text-center">
           <div className="md:w-[50%] w-[90%] mx-auto text-center mt-[87px]   ">
-            <div className="relative">
+            <div className="relative -z-30">
               <input
                 className="font-inter w-full text-[#6A7282] placeholder:text-[#6A7282] py-2.5 pl-11 outline-none  border border-[#6A7282] rounded mx-auto"
                 type="text"
