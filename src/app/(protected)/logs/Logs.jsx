@@ -32,12 +32,7 @@ export default function Logs() {
     );
   };
 
-  //   const FilterTab = [
-  //     { title: "All" },
-  //     { title: "Admin" },
-  //     { title: "User" },
-  //     { title: "Supervisor" },
-  //   ];
+ 
 
   const TableHeads = [
     { Title: "User Name", key: "name", width: "10%" },
@@ -55,7 +50,8 @@ export default function Logs() {
       end_time: "10:00",
       duration: "18 Minute",
       minute_used: "18 Minute",
-      action: <ActionButton />,
+      
+    
     },
     {
       name: "James Carter",
@@ -63,7 +59,7 @@ export default function Logs() {
       end_time: "10:00",
       duration: "18 Minute",
       minute_used: "18 Minute",
-      action: <ActionButton />,
+     
     },
     {
       name: "James Carter",
@@ -71,80 +67,9 @@ export default function Logs() {
       end_time: "10:00",
       duration: "18 Minute",
       minute_used: "18 Minute",
-      action: <ActionButton />,
+      
     },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
-    {
-      name: "James Carter",
-      id: "#1245",
-      end_time: "10:00",
-      duration: "18 Minute",
-      minute_used: "18 Minute",
-      action: <ActionButton />,
-    },
+    
    
   ];
 
