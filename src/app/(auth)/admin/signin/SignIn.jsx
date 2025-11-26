@@ -60,7 +60,7 @@ const SignIn = () => {
       // --------------------------------------------
       // SAVE LOGIN EMAIL DIRECTLY (NO TOKEN DECODE)
       // --------------------------------------------
-      Cookies.set("email", formData.email, {
+      Cookies.set("admin_email", formData.email, {
         expires: 7,
         path: "/",
       });
@@ -123,7 +123,7 @@ const SignIn = () => {
             <p className="text-[#333333] font-inter">Remember Password</p>
           </div>
           <a
-            href="/resetpass"
+            href="/admin/resetpass"
             className="text-[#333333] hover:text-[#00AEEF] font-inter underline"
           >
             Forgot Password?

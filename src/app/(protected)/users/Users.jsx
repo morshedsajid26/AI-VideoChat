@@ -42,8 +42,8 @@ export default function ActivityPage() {
 
   // ---- Table Heads ----
   const TableHeads = [
-    { Title: "Name", key: "name", width: "10%" },
     { Title: "ID", key: "id", width: "10%" },
+    { Title: "Name", key: "name", width: "15%" },
     { Title: "Email", key: "email", width: "15%" },
     { Title: "Phone", key: "phone", width: "15%" },
     { Title: "Token Used", key: "token_used", width: "10%" },
@@ -53,8 +53,14 @@ export default function ActivityPage() {
   // ---------- ✅ Fetch All Users API ----------
    useEffect(() => {
     const fetchUsers = async () => {
+      console.log("ALL COOKIES:", document.cookie);
       try {
-        const email = Cookies.get("email"); // MUST MATCH login cookie
+        const email = Cookies.get("admin_email");
+        const admin_token = Cookies.get("admin_token"); // MUST MATCH login cookie
+        console.log('Token:', admin_token)
+
+        console.log("DEBUG → Email:", email);
+      console.log("DEBUG → Token present?:", !!admin_token);
 
         if (!email) {
           console.log("Admin email not found in cookies");
@@ -62,11 +68,15 @@ export default function ActivityPage() {
         }
 
         const res = await axios.get("http://127.0.0.1:8000/api/all-users", {
-          headers: { email: email },
+          headers: { email: email,
+            Authorization: `Bearer ${admin_token}`,
+            Accept: "application/json",
+           },
           withCredentials: true,
         });
+        console.log("API RESPONSE:", res);
 
-        const data = res.data; // axios uses res.data (NOT res.json())
+        const data = res.data; 
 
         if (data.status === "success") {
           const formatted = data.users.map((u) => ({
@@ -86,7 +96,7 @@ export default function ActivityPage() {
         console.error("Fetch Error:", error);
       }
     };
-
+    console.log("Fetching users...", fetchUsers);
     fetchUsers();
   }, []);
 

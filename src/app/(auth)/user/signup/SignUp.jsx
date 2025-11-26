@@ -15,6 +15,7 @@ const SignUp = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    mobile: '',
     heardFrom: '',
     password: '',
     confirmPassword: '',
@@ -25,14 +26,6 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // example API call (for testing)
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/users")
-      .then((res) => setUsers(res.data.users))
-      .catch((err) => console.error(err));
-  }, []);
 
   // input change handler
   const handleChange = (e) => {
@@ -61,6 +54,7 @@ const SignUp = () => {
       const res = await axios.post("http://127.0.0.1:8000/api/user-registration", {
         name: formData.name,
         email: formData.email,
+        mobile: formData.mobile,
         password: formData.password,
         password_confirmation: formData.confirmPassword,
         hear_about_us: formData.heardFrom,
@@ -106,6 +100,14 @@ const SignUp = () => {
             placeholder='Enter your email here'
             name='email'
             value={formData.email}
+            onChange={handleChange}
+          />
+
+           <InputField
+            label='Phone Number'
+            placeholder='Enter your molbile number here'
+            name='mobile'
+            value={formData.mobile}
             onChange={handleChange}
           />
 

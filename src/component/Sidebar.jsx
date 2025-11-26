@@ -21,7 +21,7 @@ const navitems = [
   { name: "Usage", link: "/usage", icon: sideicon3 },
   { name: "API Keys", link: "/api/keys", icon: sideicon4 },
   { name: "Logs", link: "/logs", icon: sideicon5 },
-  { name: "Settings", link: "/", icon: sideicon6 },
+  { name: "Settings", link: "/settings", icon: sideicon6 },
 ];
 
 
@@ -51,7 +51,7 @@ const handleLogout = async () => {
     localStorage.removeItem("admin_token");
     localStorage.removeItem("email");
 
-    window.location.href = "/signin";
+    window.location.href = "/admin/signin";
 
   } catch (error) {
     console.error("Logout failed:", error);

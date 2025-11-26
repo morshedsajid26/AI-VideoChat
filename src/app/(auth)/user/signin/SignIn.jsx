@@ -38,7 +38,7 @@ const SignIn = () => {
 
   // If already logged in → redirect
   useEffect(() => {
-    const existingToken = Cookies.get("token");
+    const existingToken = Cookies.get("user_token");
     if (existingToken) {
       setAxiosAuthHeader(existingToken);
       router.replace(callbackUrl);
@@ -57,12 +57,20 @@ const SignIn = () => {
     );
 
     console.log("LOGIN RESPONSE:", res.data);
-
+    const email = formData.email;
     const token = res?.data?.token; 
+    
 
     if (!token) throw new Error("Token not found in response");
 
-    Cookies.set("token", token, {
+      Cookies.set("user_email", email, {
+      expires: 7,
+      path: "/",
+      sameSite: "lax",
+    });
+  
+
+    Cookies.set("user_token", token, {
       expires: 7,
       path: "/",
       sameSite: "lax",
@@ -70,7 +78,7 @@ const SignIn = () => {
 
     setAxiosAuthHeader(token);
 
-    localStorage.setItem("token", token);
+    localStorage.setItem("user_token", token);
 
     router.replace(callbackUrl);
   } catch (err) {
@@ -120,7 +128,7 @@ const SignIn = () => {
             <p className="text-[#333333] font-inter">Remember Password</p>
           </div>
           <a
-            href="/resetpass"
+            href="/admin/resetpass"
             className="text-[#333333] hover:text-[#00AEEF] font-inter underline"
           >
             Forgot Password?

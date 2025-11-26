@@ -33,9 +33,9 @@ const Navbar = () => {
 
   // Check login status from cookie
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = Cookies.get("user_token");
     const name = Cookies.get("name");
-    const email = Cookies.get("email");
+    const email = Cookies.get("user_email");
 
     if (token) {
       setIsLoggedIn(true);
@@ -59,9 +59,9 @@ const Navbar = () => {
 
   // Logout
   const handleLogout = () => {
-    Cookies.remove("token");
+    Cookies.remove("user_token");
     Cookies.remove("name");
-    Cookies.remove("email");
+    Cookies.remove("user_email");
     setIsLoggedIn(false);
     setProfileOpen(false);
   };
@@ -90,7 +90,7 @@ const Navbar = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={() => setProfileOpen(!profileOpen)}
               >
-                <FaUserCircle className="text-4xl text-[#0F172B] dark:text-white" />
+                <FaUserCircle className="text-4xl text-[#0F172B] " />
               </div>
 
               {/* Profile Dropdown */}
@@ -155,7 +155,7 @@ const Navbar = () => {
           {/* Mobile JOIN or Avatar */}
           {isLoggedIn ? (
             <div className="flex flex-col items-center">
-              <FaUserCircle className="text-5xl text-[#0F172B] dark:text-white mt-3" />
+              <FaUserCircle className="text-5xl text-[#0F172B]  mt-3" />
 
               <p className="mt-2 font-semibold">{userInfo.name}</p>
               <p className="text-sm text-gray-600 dark:text-gray-300">{userInfo.email}</p>
